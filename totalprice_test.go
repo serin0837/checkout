@@ -87,5 +87,6 @@ func TestScan(t *testing.T) {
 	if got[0].Number != want[0].Number {
 		t.Errorf("number of item should be same. got: %v want: %v", got[0].Number, want[0].Number)
 	}
+	// TODO: Add more test case
 
 }

@@ -2,6 +2,7 @@ package utils
 
 import (
 	"checkout-kata/models"
+	"log"
 )
 
 func ThisWeekSKU() []models.Item {
@@ -39,13 +40,17 @@ func ThisWeekSKU() []models.Item {
 
 // Scan function scan the item and keep track of numbers of item.
 func Scan(itemName string, sku []models.Item) []models.Item {
+	found := false
 
 	for i := range sku {
 		// If existing item and scanned name is same, increase number
 		if sku[i].Name == itemName {
 			sku[i].Number++
+			found = true
 		}
-
+	}
+	if !found {
+		log.Fatal("item name is not found")
 	}
 	return sku
 }

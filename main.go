@@ -40,10 +40,7 @@ func ThisWeekSKU() []models.Item {
 }
 
 // Scan function scan the item and keep track of numbers of item.
-func Scan(itemName string) []models.Item {
-
-	// Init this week SKU
-	sku := ThisWeekSKU()
+func Scan(itemName string, sku []models.Item) []models.Item {
 
 	for i := range sku {
 		// If existing item and scanned name is same, increase number

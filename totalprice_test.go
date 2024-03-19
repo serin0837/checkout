@@ -55,7 +55,10 @@ func TestThisWeekSKU(t *testing.T) {
 func TestScan(t *testing.T) {
 
 	itemAName := "A"
-	got := Scan(itemAName)
+
+	// InitSKU
+	sku := ThisWeekSKU()
+	got := Scan(itemAName, sku)
 
 	want := []models.Item{
 		{
@@ -89,4 +92,11 @@ func TestScan(t *testing.T) {
 	}
 	// TODO: Add more test case
 
+	// Scan B twice
+	Scan("B", sku)
+	got2 := Scan("B", sku)
+
+	if got2[1].Number != 2 {
+		t.Errorf("number of item should be same as expected number. got: %v want: %v", got[1].Number, 2)
+	}
 }

@@ -3,7 +3,7 @@
 This repo is to solve checkout kata.
 
 ## Run locally 
-`go run main.go`
+`go run main.go` : just to do get one checkout result from kata.
 
 ## Testing
 `go test -v ./...` : run all the test verbose

@@ -6,15 +6,14 @@ import (
 )
 
 // Checkout function scans the item and calculates the total price.
-func Checkout() int {
+func Checkout(scanItems []string) int {
 
 	// Init this week SKU
 	sku := utils.ThisWeekSKU()
 
-	// Scan B, A, B
-	utils.Scan("B", sku)
-	utils.Scan("A", sku)
-	utils.Scan("B", sku)
+	for _, scanItem := range scanItems {
+		utils.Scan(scanItem, sku)
+	}
 
 	totalPrice := utils.TotalPrice(sku)
 
@@ -22,6 +21,6 @@ func Checkout() int {
 }
 
 func main() {
-	checkoutPrice := Checkout()
+	checkoutPrice := Checkout([]string{"B", "A", "B"})
 	fmt.Printf("Total price of scanned item is: %d", checkoutPrice)
 }

@@ -5,7 +5,7 @@ import (
 )
 
 func TestCheckout(t *testing.T) {
-	got := Checkout()
+	got := Checkout([]string{"B", "A", "B"})
 	expected := 95
 
 	if got != expected {

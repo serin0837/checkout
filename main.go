@@ -2,16 +2,7 @@ package main
 
 import (
 	"checkout-kata/models"
-	"fmt"
 )
-
-// func NewItem(name string, unitPrice, specialPrice int) models.Item {
-// 	return models.Item{
-// 		Name:         name,
-// 		UnitPrice:    unitPrice,
-// 		SpecialPrice: specialPrice,
-// 	}
-// }
 
 func ThisWeekSKU() []models.Item {
 	return []models.Item{
@@ -52,13 +43,18 @@ func Scan(itemName string, sku []models.Item) []models.Item {
 	return sku
 }
 
-func TotalPrice() string {
-	return "Hello, world"
+// TotalPrice calculates the total price of items in SKU.
+func TotalPrice(sku []models.Item) int {
+	var totalPrice int
+
+	// Range each item in the sku
+	for _, skuItem := range sku {
+		totalPrice = totalPrice + skuItem.UnitPrice*skuItem.Number
+	}
+	return totalPrice
 }
 
 func main() {
-	fmt.Println(TotalPrice())
-
 	// Let's scan the items
 
 }

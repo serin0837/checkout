@@ -6,15 +6,6 @@ import (
 	"testing"
 )
 
-func TestTotalPrice(t *testing.T) {
-	got := TotalPrice()
-	want := "Hello, world"
-
-	if got != want {
-		t.Errorf("got %q want %q", got, want)
-	}
-}
-
 func TestThisWeekSKU(t *testing.T) {
 	got := ThisWeekSKU()
 	want := []models.Item{
@@ -99,4 +90,71 @@ func TestScan(t *testing.T) {
 	if got2[1].Number != 2 {
 		t.Errorf("number of item should be same as expected number. got: %v want: %v", got[1].Number, 2)
 	}
+}
+
+func TestTotalPrice(t *testing.T) {
+	testSKU := []models.Item{
+		{
+			Name:         "A",
+			UnitPrice:    50,
+			SpecialPrice: 130,
+			Number:       1,
+		},
+		{
+			Name:         "B",
+			UnitPrice:    30,
+			SpecialPrice: 45,
+			Number:       1,
+		},
+		{
+			Name:         "C",
+			UnitPrice:    20,
+			SpecialPrice: 0,
+			Number:       1,
+		},
+		{
+			Name:         "D",
+			UnitPrice:    15,
+			SpecialPrice: 0,
+			Number:       1,
+		},
+	}
+
+	got := TotalPrice(testSKU)
+	if got != 115 {
+		t.Errorf("total price should calculate as expected. got: %v expected: %v", got, 115)
+	}
+
+	testSKU2 := []models.Item{
+		{
+			Name:         "A",
+			UnitPrice:    50,
+			SpecialPrice: 130,
+			Number:       15,
+		},
+		{
+			Name:         "B",
+			UnitPrice:    30,
+			SpecialPrice: 45,
+			Number:       20,
+		},
+		{
+			Name:         "C",
+			UnitPrice:    20,
+			SpecialPrice: 0,
+			Number:       30,
+		},
+		{
+			Name:         "D",
+			UnitPrice:    15,
+			SpecialPrice: 0,
+			Number:       60,
+		},
+	}
+
+	got2 := TotalPrice(testSKU2)
+	if got2 != 2850 {
+		t.Errorf("total price should calculate as expected. got: %v expected: %v", got, 115)
+	}
+
 }

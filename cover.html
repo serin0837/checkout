@@ -55,9 +55,9 @@
 			<div id="nav">
 				<select id="files">
 				
-				<option value="file0">checkout-kata/main.go (71.4%)</option>
+				<option value="file0">checkout-kata/main.go (57.1%)</option>
 				
-				<option value="file1">checkout-kata/utils/utils.go (100.0%)</option>
+				<option value="file1">checkout-kata/utils/utils.go (95.5%)</option>
 				
 				</select>
 			</div>
@@ -74,15 +74,13 @@
 		<pre class="file" id="file0" style="display: none">package main
 
 import (
+        "checkout-kata/models"
         "checkout-kata/utils"
         "fmt"
 )
 
 // Checkout function scans the item and calculates the total price.
-func Checkout(scanItems []string) int <span class="cov8" title="1">{
-
-        // Init this week SKU
-        sku := utils.ThisWeekSKU()
+func Checkout(scanItems []string, sku []models.Item) int <span class="cov8" title="1">{
 
         for _, scanItem := range scanItems </span><span class="cov8" title="1">{
                 utils.Scan(scanItem, sku)
@@ -94,7 +92,11 @@ func Checkout(scanItems []string) int <span class="cov8" title="1">{
 }
 
 func main() <span class="cov0" title="0">{
-        checkoutPrice := Checkout([]string{"B", "A", "B"})
+        // Init this week SKU
+        sku := utils.ThisWeekSKU()
+
+        checkoutPrice := Checkout([]string{"B", "A", "B"}, sku)
+
         fmt.Printf("Total price of scanned item is: %d", checkoutPrice)
 }</span>
 </pre>
@@ -103,7 +105,7 @@ func main() <span class="cov0" title="0">{
 
 import (
         "checkout-kata/models"
-        "fmt"
+        "log"
 )
 
 func ThisWeekSKU() []models.Item <span class="cov8" title="1">{
@@ -141,14 +143,19 @@ func ThisWeekSKU() []models.Item <span class="cov8" title="1">{
 
 // Scan function scan the item and keep track of numbers of item.
 func Scan(itemName string, sku []models.Item) []models.Item <span class="cov8" title="1">{
+        found := false
 
         for i := range sku </span><span class="cov8" title="1">{
                 // If existing item and scanned name is same, increase number
                 if sku[i].Name == itemName </span><span class="cov8" title="1">{
                         sku[i].Number++
-                }</span>
-
+                        found = true
+                        break</span>
+                }
         }
+        <span class="cov8" title="1">if !found </span><span class="cov0" title="0">{
+                log.Fatal("item name is not found")
+        }</span>
         <span class="cov8" title="1">return sku</span>
 }
 
@@ -162,15 +169,15 @@ func TotalPrice(sku []models.Item) int <span class="cov8" title="1">{
 
                 // check if whole number is dividable by special number
                 // check special price is not 0
-                // if dividable, can we create sum of whole special price then minus the unitnumber
+                // if dividable, get quotient and remainder
+                // then calculate total discount price.
                 if skuItem.SpecialNumber != 0 </span><span class="cov8" title="1">{
                         divided, remainder := divideAndGetRemainder(skuItem.Number, skuItem.SpecialNumber)
                         discountedPrice = discountedPrice + divided*skuItem.SpecialPrice
-                        fmt.Println(discountedPrice, "check discounted price")
 
+                        // change sku item number to remainder to calculate left over item.
                         skuItem.Number = remainder
 
-                        fmt.Println("check remainder", remainder)
                 }</span>
                 <span class="cov8" title="1">totalPrice = totalPrice + skuItem.UnitPrice*skuItem.Number + discountedPrice</span>
 

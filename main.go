@@ -79,6 +79,15 @@ func TotalPrice(sku []models.Item) int {
 }
 
 func main() {
-	// Let's scan the items
+	sku := ThisWeekSKU()
+
+	// Scan B, A, B
+	Scan("B", sku)
+	Scan("A", sku)
+	Scan("B", sku)
+
+	totalPrice := TotalPrice(sku)
+
+	fmt.Printf("Total price of scanned item is: %d", totalPrice)
 
 }

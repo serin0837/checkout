@@ -7,8 +7,9 @@ package models
 
 // Item represent field for one item.
 type Item struct {
-	Name         string
-	UnitPrice    int
-	SpecialPrice int
-	Number       int
+	Name          string
+	UnitPrice     int
+	SpecialPrice  int
+	SpecialNumber int
+	Number        int
 }

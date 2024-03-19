@@ -2,6 +2,7 @@ package main
 
 import (
 	"checkout-kata/models"
+	"fmt"
 	"testing"
 )
 
@@ -49,4 +50,42 @@ func TestThisWeekSKU(t *testing.T) {
 			t.Errorf("slices are not equal. got: %q want: %q", item.Name, want[i].Name)
 		}
 	}
+}
+
+func TestScan(t *testing.T) {
+
+	itemAName := "A"
+	got := Scan(itemAName)
+
+	want := []models.Item{
+		{
+			Name:         "A",
+			UnitPrice:    50,
+			SpecialPrice: 130,
+			Number:       1,
+		},
+		{
+			Name:         "B",
+			UnitPrice:    30,
+			SpecialPrice: 45,
+		},
+		{
+			Name:         "C",
+			UnitPrice:    20,
+			SpecialPrice: 0,
+		},
+		{
+			Name:         "D",
+			UnitPrice:    15,
+			SpecialPrice: 0,
+		},
+	}
+
+	fmt.Printf("got: %+v\n", got)
+	fmt.Printf("want: %+v\n", want)
+
+	if got[0].Number != want[0].Number {
+		t.Errorf("number of item should be same. got: %v want: %v", got[0].Number, want[0].Number)
+	}
+
 }

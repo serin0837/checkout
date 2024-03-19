@@ -19,6 +19,7 @@ func ThisWeekSKU() []models.Item {
 			Name:         "A",
 			UnitPrice:    50,
 			SpecialPrice: 130,
+			Number:       0,
 		},
 		{
 			Name:         "B",
@@ -38,6 +39,22 @@ func ThisWeekSKU() []models.Item {
 	}
 }
 
+// Scan function scan the item and keep track of numbers of item.
+func Scan(itemName string) []models.Item {
+
+	// Init this week SKU
+	sku := ThisWeekSKU()
+
+	for i := range sku {
+		// If existing item and scanned name is same, increase number
+		if sku[i].Name == itemName {
+			sku[i].Number++
+		}
+
+	}
+	return sku
+}
+
 func TotalPrice() string {
 	return "Hello, world"
 }
@@ -45,5 +62,6 @@ func TotalPrice() string {
 func main() {
 	fmt.Println(TotalPrice())
 
-	// Initialize this week stock
+	// Let's scan the items
+
 }

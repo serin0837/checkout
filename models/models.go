@@ -10,4 +10,5 @@ type Item struct {
 	Name         string
 	UnitPrice    int
 	SpecialPrice int
+	Number       int
 }

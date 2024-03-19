@@ -3,7 +3,6 @@ package main
 import (
 	"checkout-kata/models"
 	"checkout-kata/utils"
-	"fmt"
 	"testing"
 )
 
@@ -13,10 +12,9 @@ func TestCheckout(t *testing.T) {
 	tmrSku := utils.ThisWeekSKU()
 
 	nextweekSku := utils.ThisWeekSKU()
-	// Directly modify the item's price, but we want to set it differently.
-	nextweekSku[2].UnitPrice = 100
 
-	fmt.Printf("check this %+v", nextweekSku)
+	// Directly modify the item's price, but next time we want to set it differently.
+	nextweekSku[2].UnitPrice = 100
 
 	testCases := []struct {
 		scanItems     []string

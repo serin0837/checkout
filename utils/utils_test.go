@@ -2,7 +2,6 @@ package utils
 
 import (
 	"checkout-kata/models"
-	"fmt"
 	"testing"
 )
 
@@ -50,45 +49,20 @@ func TestScan(t *testing.T) {
 	// InitSKU
 	sku := ThisWeekSKU()
 	got := Scan(itemAName, sku)
+	expectedANumber := 1
 
-	want := []models.Item{
-		{
-			Name:         "A",
-			UnitPrice:    50,
-			SpecialPrice: 130,
-			Number:       1,
-		},
-		{
-			Name:         "B",
-			UnitPrice:    30,
-			SpecialPrice: 45,
-		},
-		{
-			Name:         "C",
-			UnitPrice:    20,
-			SpecialPrice: 0,
-		},
-		{
-			Name:         "D",
-			UnitPrice:    15,
-			SpecialPrice: 0,
-		},
+	if got[0].Number != expectedANumber {
+		t.Errorf("number of item should be same. got: %v expected: %v", got[0].Number, expectedANumber)
 	}
 
-	fmt.Printf("got: %+v\n", got)
-	fmt.Printf("want: %+v\n", want)
-
-	if got[0].Number != want[0].Number {
-		t.Errorf("number of item should be same. got: %v want: %v", got[0].Number, want[0].Number)
-	}
-	// TODO: Add more test case
-
-	// Scan B twice
+	// Scan B three times
 	Scan("B", sku)
-	got2 := Scan("B", sku)
+	Scan("B", sku)
+	finalSku := Scan("B", sku)
+	expectedBNumber := 3
 
-	if got2[1].Number != 2 {
-		t.Errorf("number of item should be same as expected number. got: %v want: %v", got[1].Number, 2)
+	if finalSku[1].Number != expectedBNumber {
+		t.Errorf("number of item should be same as expected number. got: %v want: %v", finalSku[1].Number, expectedBNumber)
 	}
 }
 

@@ -2,7 +2,6 @@ package utils
 
 import (
 	"checkout-kata/models"
-	"fmt"
 )
 
 func ThisWeekSKU() []models.Item {
@@ -61,15 +60,15 @@ func TotalPrice(sku []models.Item) int {
 
 		// check if whole number is dividable by special number
 		// check special price is not 0
-		// if dividable, can we create sum of whole special price then minus the unitnumber
+		// if dividable, get quotient and remainder
+		// then calculate total discount price.
 		if skuItem.SpecialNumber != 0 {
 			divided, remainder := divideAndGetRemainder(skuItem.Number, skuItem.SpecialNumber)
 			discountedPrice = discountedPrice + divided*skuItem.SpecialPrice
-			fmt.Println(discountedPrice, "check discounted price")
 
+			// change sku item number to remainder to calculate left over item.
 			skuItem.Number = remainder
 
-			fmt.Println("check remainder", remainder)
 		}
 		totalPrice = totalPrice + skuItem.UnitPrice*skuItem.Number + discountedPrice
 
